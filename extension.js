@@ -17,9 +17,10 @@ const SHELL_MINOR = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
 let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
 
   _init() {
+    
     super._init(0.0, `${Me.metadata.name} Indicator`, false);
 
-    let iconUri = `file://${Me.path}/data/icons/icon.svg`;
+    let iconUri = `file://${Me.path}/icons/icon.svg`;
 
     const iconFile = Gio.File.new_for_uri(iconUri);
     const gicon = new Gio.FileIcon({ file: iconFile });
@@ -34,9 +35,9 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
     let hostString = GLib.spawn_command_line_sync("cat " + GLib.get_home_dir() + "/.ssh/config")[1].toString();
 
     this.hosts = hostString.split('\n').join('{{NEWLINE}}').split('\r').join('{{NEWLINE}}').split('{{NEWLINE}}')
-      .map(item => item.trim())
-      .filter(item => item.indexOf('Host ') === 0)
-      .map(item => item = item.split('Host ')[1]);
+                .map(item => item.trim())
+                .filter(item => item.indexOf('Host ') === 0)
+                .map(item => item = item.split('Host ')[1]);
 
     this.hosts.forEach(item => {
       this.menu.addAction(item, function (e) {

@@ -1,10 +1,10 @@
 {
   "uuid": "ssh-quick-connect@ibrokemy.computer",
   "name": "SSH Quick Connect",
-  "description": "This extension puts an icon in the panel with a simple dropdown menu.",
+  "description": "This extension puts an icon in the panel with a simple dropdown menu that launches items from your ~.ssh/config",
   "version": 1,
   "shell-version": [
     "3.36"
   ],
-  "url": "https://www.github.com/ibrokemycomputer/ssh-quick-connect"
+  "url": "https://www.github.com/ibrokemycomputer/gnome-shell-extension-ssh-quick-connect"
 }
