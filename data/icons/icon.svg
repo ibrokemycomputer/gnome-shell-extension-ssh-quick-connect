@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <path d="M0 14V4s0-4 4-4h56s4 0 4 4v10zm4 50s-4 0-4-4V4s0-4 4-4h56s4 0 4 4v56s0 4-4 4z" fill="none" stroke="#999" stroke-width="3" />
+  <text y="327.192" x="2.446" style="line-height:1.25" color="#999" font-weight="400" font-size="40" font-family="sans-serif" letter-spacing="0" word-spacing="0" transform="translate(0 -280.067)">
+    <tspan y="327.192" x="2.446" font-weight="700" font-size="26.667">SSH</tspan>
+  </text>
+</svg>
