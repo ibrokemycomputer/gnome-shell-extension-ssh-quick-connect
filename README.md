@@ -1,6 +1,6 @@
 # Overview
 
-Lists entries from your ssh config files, launches them with a click in your default terminal
+Lists entries from your `~/.ssh/config` file, and launches them in the default terminal when clicked.
 
 ## TODO
 
