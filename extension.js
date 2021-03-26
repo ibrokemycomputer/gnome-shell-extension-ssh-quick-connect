@@ -12,6 +12,7 @@ const Main = imports.ui.main;
 const PanelMenu = imports.ui.panelMenu;
 
 const Config = imports.misc.config;
+const SHELL_MAJOR = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 const SHELL_MINOR = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
 
 let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
@@ -71,7 +72,7 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
  */
 
 // Compatibility with gnome-shell >= 3.32
-if (SHELL_MINOR > 30) {
+if (SHELL_MAJOR > 39 || SHELL_MINOR > 30) {
   SSHQuickConnect = GObject.registerClass(
     { GTypeName: 'SSHQuickConnect' },
     SSHQuickConnect
