@@ -4,7 +4,8 @@
   "description": "This extension puts an icon in the panel with a simple dropdown menu that launches items from your ~.ssh/config",
   "version": 1,
   "shell-version": [
-    "3.36"
+    "3.36",
+    "40.0"
   ],
   "url": "https://www.github.com/ibrokemycomputer/gnome-shell-extension-ssh-quick-connect"
 }
