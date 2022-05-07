@@ -4,6 +4,7 @@ const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const GObject = imports.gi.GObject;
 const St = imports.gi.St;
+const ByteArray = imports.byteArray;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Util = imports.misc.util;
@@ -22,7 +23,9 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
 
     this.createIcon();
     // Get ~/.ssh/config as string
-    const hostString = GLib.spawn_command_line_sync("cat " + GLib.get_home_dir() + "/.ssh/config")[1].toString();
+    const hostString = ByteArray.toString(
+      GLib.file_get_contents(GLib.get_home_dir() + '/.ssh/config')[1]
+    );
     // Parse string into array of Hosts
     this.hosts = hostString.split('\n').join('{{NEWLINE}}').split('\r').join('{{NEWLINE}}').split('{{NEWLINE}}')
                 .map(item => item.trim())
@@ -71,7 +74,6 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
  * EXTENSION BOILERPLATE
  */
 
-// Compatibility with gnome-shell >= 3.32
 if (SHELL_MAJOR > 39 || SHELL_MINOR > 30) {
   SSHQuickConnect = GObject.registerClass(
     { GTypeName: 'SSHQuickConnect' },
