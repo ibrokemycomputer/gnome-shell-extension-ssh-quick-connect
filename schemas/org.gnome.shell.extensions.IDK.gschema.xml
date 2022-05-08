@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.ssh-quick-connect.ibrokemy.computer" path="/org/gnome/shell/extensions/ssh-quick-connect/ibrokemy/computer/">
+    <key name="ssh-source" type="s">
+      <default>"~/.ssh/config"</default>
+    </key>
+  </schema>
+</schemalist>

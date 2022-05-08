@@ -21,41 +21,17 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
   _init() {
     super._init(0.0, `${Me.metadata.name} Indicator`, false);
 
+    this.settings = this.getSettings();
+
     this.createIcon();
-    // Get ~/.ssh/config as string
-    const hostString = ByteArray.toString(
-      GLib.file_get_contents(GLib.get_home_dir() + '/.ssh/config')[1]
-    );
-    // Parse string into array of Hosts
-    this.hosts = hostString.split('\n').join('{{NEWLINE}}').split('\r').join('{{NEWLINE}}').split('{{NEWLINE}}')
-                .map(item => item.trim())
-                .filter(item => item.indexOf('Host ') === 0)
-                .map(item => item = item.split('Host ')[1]);
 
-    // Add listeners  
-    this.hosts.forEach(item => {
-      this.menu.addAction(item, e => this.sshToItem(item));
-    });
-
-  }
-  
-  /**
-   * Spawns a subprocess that opens the defualt terminal and runs `ssh ${item}`
-   * @param {String} item The Host to ssh into
-   */
-  sshToItem(item) {
-    const command = ['x-terminal-emulator', '-e', 'ssh', item];
-    try {
-      let proc = Gio.Subprocess.new( command, Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE );
-      // The callback is a force exit as there is no need for process communication
-      proc.communicate_utf8_async(null, null, () => proc.force_exit());
-    } catch (e) {
-      logError(e);
-    }
+    this.createMenu(this.settings);
   }
 
   /**
-   * Boilerplate to create an icon from an SVG
+   * Creates panel icon
+   * 
+   * @returns {void}
    */
   createIcon() {
     const iconUri = `file://${Me.path}/icons/icon.svg`;
@@ -65,9 +41,80 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
       gicon: gicon,
       style_class: 'system-status-icon'
     });
-    this.add_child(icon);
+    return this.add_child(icon);
   }
 
+  /**
+   * Parses the "ssh-source" setting and creates a menu item for each host
+   * 
+   * @param {Gio.Settings} settings The settings object
+   * @returns {void}
+   */
+  createMenu(settings = this.settings) {
+    let hosts = [];
+    
+    let sshPath = settings.get_string('ssh-source');
+
+    let paths = sshPath.split(':');
+
+    paths.forEach(path => {
+      // Replcae ~ with home directory
+      path = path.replace('~', GLib.get_home_dir());
+      // Get contents of file
+      const fileStr = ByteArray.toString(
+        GLib.file_get_contents(path)[1]
+      );
+      hosts = hosts.concat(this.parseHosts(fileStr));
+    });
+
+    // Add listeners  
+    return hosts.forEach(item => {
+      this.menu.addAction(item, e => this.sshToItem(item));
+    });
+  }
+
+  /**
+   * 
+   * @param {String} hostString The ssh config file to parse
+   * @returns {Array} An array of hosts
+   */
+  parseHosts(hostString) {
+    return hostString.split('\n').join('{{NEWLINE}}').split('\r').join('{{NEWLINE}}').split('{{NEWLINE}}')
+          .map(item => item.trim())
+          .filter(item => item.indexOf('Host ') === 0)
+          .map(item => item = item.split('Host ')[1]);
+  }
+
+  /**
+   * Spawns a subprocess that opens the defualt terminal and runs `ssh ${item}`
+   * @param {String} item The Host to ssh into
+   * @returns {void}
+   */
+  sshToItem(item) {
+    const command = ['x-terminal-emulator', '-e', 'ssh', item];
+    try {
+      let proc = Gio.Subprocess.new( command, Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE );
+      // The callback is a force exit as there is no need for process communication
+      return proc.communicate_utf8_async(null, null, () => proc.force_exit());
+    } catch (e) {
+      return logError(e);
+    }
+  }
+
+  getSettings () {
+    let GioSSS = Gio.SettingsSchemaSource;
+    let schemaSource = GioSSS.new_from_directory(
+      Me.dir.get_child("schemas").get_path(),
+      GioSSS.get_default(),
+      false
+    );
+    let schemaObj = schemaSource.lookup(
+      'org.gnome.shell.extensions.ssh-quick-connect.ibrokemy.computer', true);
+    if (!schemaObj) {
+      throw new Error('cannot find schemas');
+    }
+    return new Gio.Settings({ settings_schema : schemaObj });
+  }
 }
 
 /**
