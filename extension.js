@@ -152,7 +152,7 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
    * @param {Integer} timeout Time in seconds to recheck files for changes
    */
   fileListenerHack(timeout = 10) {
-    Mainloop.timeout_add_seconds(timeout, () => {
+    let fileTimer = Mainloop.timeout_add_seconds(timeout, () => {
       // log('hacky loop');
       this.createMenu();
       return this.fileListenerHack();
@@ -234,5 +234,9 @@ function disable() {
   if (indicator !== null) {
     indicator.destroy();
     indicator = null;
+  }
+  if (fileTimer) {
+    GLib.Source.remove(fileTimer);
+    fileTimer = null;
   }
 }
