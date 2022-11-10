@@ -18,13 +18,14 @@ const Config = imports.misc.config;
 const SHELL_MAJOR = parseInt(Config.PACKAGE_VERSION.split('.')[0]);
 const SHELL_MINOR = parseInt(Config.PACKAGE_VERSION.split('.')[1]);
 
+let fileTimer;
 
 let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
 
   _init() {
     super._init(0.0, `${Me.metadata.name} Indicator`, false);
 
-    this.settings = this.getSettings();
+    this.settings = ExtensionUtils.getSettings();
 
     this.createIcon();
 
@@ -114,10 +115,7 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
 
 
   /**
-   * Spawns a subprocess that opens the defualt terminal and runs `ssh ${item}`
-   * @param {String} item The Host to ssh into
-   * @returns {void}
-   */
+   * Spawns a subprocess that opens tindicator
   sshToItem(item) {
     let terminalCommand = this.getTerminalCommand();
     let command = terminalCommand.split(' ');
@@ -157,25 +155,6 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
       this.createMenu();
       return this.fileListenerHack();
     });
-  }
-
-  /**
-   * 
-   * @returns {Object} User settings object
-   */
-  getSettings () {
-    let GioSSS = Gio.SettingsSchemaSource;
-    let schemaSource = GioSSS.new_from_directory(
-      Me.dir.get_child("schemas").get_path(),
-      GioSSS.get_default(),
-      false
-    );
-    let schemaObj = schemaSource.lookup(
-      'org.gnome.shell.extensions.ssh-quick-connect.ibrokemy.computer', true);
-    if (!schemaObj) {
-      throw new Error('cannot find schemas');
-    }
-    return new Gio.Settings({ settings_schema : schemaObj });
   }
 
   /**
