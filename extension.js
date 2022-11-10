@@ -150,7 +150,7 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
    * @param {Integer} timeout Time in seconds to recheck files for changes
    */
   fileListenerHack(timeout = 10) {
-    let fileTimer = Mainloop.timeout_add_seconds(timeout, () => {
+    fileTimer = Mainloop.timeout_add_seconds(timeout, () => {
       // log('hacky loop');
       this.createMenu();
       return this.fileListenerHack();
