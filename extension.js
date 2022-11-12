@@ -25,7 +25,7 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
   _init() {
     super._init(0.0, `${Me.metadata.name} Indicator`, false);
 
-    this.settings = ExtensionUtils.getSettings();
+    this.settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.ssh-quick-connect.ibrokemy.computer');
 
     this.createIcon();
 
