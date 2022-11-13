@@ -115,7 +115,8 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
 
 
   /**
-   * Spawns a subprocess that opens tindicator
+   * Spawns a subprocess that opens indicator
+   **/
   sshToItem(item) {
     let terminalCommand = this.getTerminalCommand();
     let command = terminalCommand.split(' ');
