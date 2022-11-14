@@ -171,7 +171,7 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
     const DESKTOP_SESSION = GLib.getenv('DESKTOP_SESSION');
     const SSH_COMMAND = ' -e ssh';
     let LINUX_TERMINAL = 'xterm';
-    let CUSTOM_SSH = settings.get_string('ssh-command');
+    let CUSTOM_SSH = this.settings.get_string('ssh-command');
 
     if (CUSTOM_SSH !== "DEFAULT") {
       return CUSTOM_SSH;
