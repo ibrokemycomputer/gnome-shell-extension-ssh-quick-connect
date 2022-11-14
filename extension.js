@@ -90,7 +90,7 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
   // Watch sshPath setting for changes and update menu
   settingsUpdateListener() {
     this.settings.connect('changed::ssh-source', () => {
-      log('settings changed');
+      // log('settings changed');
       this.createMenu();
     });
   }
@@ -171,7 +171,12 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
     const DESKTOP_SESSION = GLib.getenv('DESKTOP_SESSION');
     const SSH_COMMAND = ' -e ssh';
     let LINUX_TERMINAL = 'xterm';
+    let CUSTOM_SSH = settings.get_string('ssh-command');
 
+    if (CUSTOM_SSH !== "DEFAULT") {
+      return CUSTOM_SSH;
+    } 
+    
     if (isDebian) {
       LINUX_TERMINAL = 'x-terminal-emulator';
     } else if (DESKTOP_SESSION === 'gnome' || DESKTOP_SESSION === 'gnome-classic') {
@@ -200,17 +205,17 @@ if (SHELL_MAJOR > 39 || SHELL_MINOR > 30) {
 let indicator = null;
 
 function init() {
-  log(`initializing ${Me.metadata.name} version ${Me.metadata.version}`);
+  // log(`initializing ${Me.metadata.name} version ${Me.metadata.version}`);
 }
 
 function enable() {
-  log(`enabling ${Me.metadata.name} version ${Me.metadata.version}`);
+  // log(`enabling ${Me.metadata.name} version ${Me.metadata.version}`);
   indicator = new SSHQuickConnect();
   Main.panel.addToStatusArea(`${Me.metadata.name} Indicator`, indicator);
 }
 
 function disable() {
-  log(`disabling ${Me.metadata.name} version ${Me.metadata.version}`);
+  // log(`disabling ${Me.metadata.name} version ${Me.metadata.version}`);
   if (indicator !== null) {
     indicator.destroy();
     indicator = null;

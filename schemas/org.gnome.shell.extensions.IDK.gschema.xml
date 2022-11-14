@@ -4,5 +4,8 @@
     <key name="ssh-source" type="s">
       <default>"~/.ssh/config"</default>
     </key>
+    <key name="ssh-command" type="s">
+      <default>"DEFAULT"</default>
+    </key>
   </schema>
 </schemalist>
