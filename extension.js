@@ -167,10 +167,11 @@ let SSHQuickConnect = class SSHQuickConnect extends PanelMenu.Button {
    */
   getTerminalCommand() {
     const file = Gio.File.new_for_path('/etc/debian_version');
+    let isDebian = 0;
     try {
-      const isDebian = file.query_info('standard::*', 0, null)?.get_size() > 0;
+      isDebian = file.query_info('standard::*', 0, null)?.get_size() > 0;
     } catch(e) {
-      const isDebian = 0
+      isDebian = 0
     }
     const DESKTOP_SESSION = GLib.getenv('DESKTOP_SESSION');
     const SSH_COMMAND = ' -e ssh';
