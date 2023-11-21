@@ -1,5 +1,7 @@
 # Overview
 
+> ATTENTION: Hi everyone. I try to keep this up to date but fall behind often. No, this isn't abandonened. If you want to help/submit a PR I'll do my best to get them merged ASAP!
+
 Lists entries from your `~/.ssh/config` file, and launches them in the default terminal when clicked.
 
 ## Easy Install
