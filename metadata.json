@@ -3,6 +3,8 @@
   "name": "SSH Quick Connect",
   "description": "This extension puts an icon in the panel with a simple dropdown menu that launches items from your ssh configs",
   "shell-version": [ "45" ],
+  "settings-schema": "org.gnome.shell.extensions.computer.ibrokemy.ssh-quick-connect",
   "url": "https://www.github.com/ibrokemycomputer/gnome-shell-extension-ssh-quick-connect",
-  "version": 13
+  "version": 13,
+  "version-name": "45.0.0"
 }

@@ -26,3 +26,7 @@ _https://extensions.gnome.org/extension/3237/ssh-quick-connect/_
 ## Wishlist
 
 - Search
+
+## Misc
+
+To recompile the schema (for < GNOME44) , run `glib-compile-schemas schemas/`
