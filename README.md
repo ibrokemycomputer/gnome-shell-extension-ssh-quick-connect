@@ -26,3 +26,10 @@ _https://extensions.gnome.org/extension/3237/ssh-quick-connect/_
 ## Wishlist
 
 - Search
+
+
+## Deploying a New Version
+
+1. Bump the version number in `metadata.json`
+2. ZIP everything but the git files
+3. Upload to the [GNOME Shell Extensions site](https://extensions.gnome.org/extension/3237/ssh-quick-connect/).
