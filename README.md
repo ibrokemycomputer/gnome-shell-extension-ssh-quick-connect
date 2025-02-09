@@ -1,6 +1,13 @@
 # Overview
 
-> ATTENTION: Hi everyone. I try to keep this up to date but fall behind often. No, this isn't abandonened. If you want to help/submit a PR I'll do my best to get them merged ASAP!
+> [!CAUTION]
+> I apologize everyone, this was just to see what the GNOME + Javascript developer expierience was like. I am no longer maintaining this.
+> I have removed the extensions from the GNOME Shell Extensions directory.
+> [View Existing Forks](https://github.com/ibrokemycomputer/gnome-shell-extension-ssh-quick-connect/forks?include=active&page=1&period=&sort_by=stargazer_counts)
+
+---
+
+# Old Instructions
 
 Lists entries from your `~/.ssh/config` file, and launches them in the default terminal when clicked.
 
